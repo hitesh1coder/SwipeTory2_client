@@ -1,0 +1,102 @@
+header{
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+.header_btns{
+    display: flex;
+    gap: 1rem;
+}
+.header_content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+.btn,.btn2 {
+    width: 7rem;
+    height: 2.1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 1rem;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+
+    background: rgba(255, 115, 115, 1);
+}
+.btn2{
+    background: rgba(115, 171, 255, 1);
+
+}
+.btn span img{
+    height: 3vh;
+}
+.your_story_btn,.logout_btn{
+    display: none;
+}
+.user_container{
+    position: relative;
+}
+.user{
+    width: 35%;
+    cursor: pointer;
+}
+.user_content_box {
+    top: 2.5rem;
+    right: -3rem;
+    position: absolute;
+    background: #fff;
+    box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    width: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+  }
+  .menu ul h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+.menu_icon{
+    cursor: pointer;
+}
+
+/* Responcive  code  */
+@media only screen and (max-width: 470px) {
+
+  .header_content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: #fff;
+    transition: 1s;
+    transform: translateY(-100vh);
+  }
+
+  .responsive_nav {
+    margin-top: 12vh;
+    transform:none;
+  }
+  .your_story_btn,.logout_btn{
+    display: block;
+}
+}
