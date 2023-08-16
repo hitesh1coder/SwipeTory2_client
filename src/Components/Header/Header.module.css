@@ -45,13 +45,14 @@ header{
     display: none;
 }
 .user_container{
-    position: relative;
+  position: relative;
 }
 .user{
     width: 35%;
     cursor: pointer;
+
 }
-.user_content_box {
+.user_menu_box {
     top: 2.5rem;
     right: -3rem;
     position: absolute;
@@ -59,11 +60,14 @@ header{
     box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.15);
     padding: 3rem;
     width: 14rem;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
+    gap: 2rem;
+  }
+  .user_container h2{
+    display: none;
   }
   .menu ul h2 {
     text-align: center;
@@ -71,6 +75,9 @@ header{
   }
 .menu_icon{
     cursor: pointer;
+}
+.close_icon{
+  display: none;
 }
 
 /* Responcive  code  */
@@ -96,7 +103,26 @@ header{
     margin-top: 12vh;
     transform:none;
   }
-  .your_story_btn,.logout_btn{
+  .user_container{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .user_container h2{
     display: block;
+  }
+  .user{
+    pointer-events: none;
+  }
+  .your_story_btn,.logout_btn,.close_icon{
+    display: block;
+}
+.close_icon{
+  position: absolute;
+  top: 0;
+  right: 1rem;
 }
 }
