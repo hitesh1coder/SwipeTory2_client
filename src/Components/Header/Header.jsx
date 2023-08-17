@@ -4,16 +4,21 @@ import bookmarkIcon from "../../images/icons8-bookmark-50.png";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import menuIcon from "../../images/icons8-menu-24.png";
 import userpicture from "../../images/userIcon.png";
+import { globleContext } from "../../Store/Context";
 
-const Header = () => {
+const Header = ({
+  setShowLoginModal,
+  setShowAddStoryModal,
+  handleShowBookmark,
+}) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const user = "";
+  const { user, setUser, setShowRegisterModal } = globleContext();
   const navRef = useRef();
   const showNavbar = () => {
     navRef.current.classList.toggle(`${Styles.responsive_nav}`);
   };
   const handleLogOut = () => {
-    localStorage.removeItem("token");
+    setUser("");
   };
   return (
     <>
@@ -21,7 +26,7 @@ const Header = () => {
         <div className={Styles.logo}>
           <h1>SwipTory</h1>
         </div>
-        {user ? (
+        {!user ? (
           <div>
             <img
               onClick={showNavbar}
@@ -30,8 +35,18 @@ const Header = () => {
               alt="close"
             />
             <div ref={navRef} className={Styles.header_content}>
-              <button className={Styles.btn}>Register Now</button>
-              <button className={Styles.btn2}>Sign in</button>
+              <button
+                onClick={() => setShowRegisterModal(true)}
+                className={Styles.btn}
+              >
+                Register Now
+              </button>
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className={Styles.btn2}
+              >
+                Sign in
+              </button>
             </div>
           </div>
         ) : (
@@ -46,13 +61,27 @@ const Header = () => {
               <button className={`${Styles.btn} ${Styles.your_story_btn}`}>
                 Your Story
               </button>
-              <button className={Styles.btn}>
+              <button
+                onClick={() => {
+                  handleShowBookmark();
+                  showNavbar();
+                }}
+                className={Styles.btn}
+              >
                 <span>
                   <img src={bookmarkIcon} alt="bookmark" />
                 </span>
                 Bookmark
               </button>
-              <button className={Styles.btn}>Add Story</button>
+              <button
+                onClick={() => {
+                  setShowAddStoryModal(true);
+                  showNavbar();
+                }}
+                className={Styles.btn}
+              >
+                Add Story
+              </button>
               <div className={Styles.user_container}>
                 <img
                   onClick={() => setOpenMenu(!openMenu)}
@@ -72,7 +101,10 @@ const Header = () => {
                   </button>
                 </div>
               </div>
-              <button className={`${Styles.btn} ${Styles.logout_btn}`}>
+              <button
+                onClick={handleLogOut}
+                className={`${Styles.btn} ${Styles.logout_btn}`}
+              >
                 Logout
               </button>
             </div>

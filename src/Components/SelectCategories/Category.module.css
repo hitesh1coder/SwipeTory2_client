@@ -8,6 +8,7 @@
   justify-content: space-around;
   align-items: center;
   display: flex;
+  /* width: 13vw; */
 }
 .category_card {
   border-radius: 1.3rem;
@@ -43,11 +44,11 @@
   .cards {
     overflow-x: auto;
     width: 100vw;
-    padding-left: 18rem;
+    justify-content: flex-start;
     gap: 1rem;
   }
   .category_card,
-  .category_card h2,
+  .category_card h5,
   .category_card img {
     min-width: 25vw;
     height: 15vh;

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Styles from "./Category.module.css";
 import { categoriesData } from "./CategoryData";
-import { Stories } from "../../Store/Context";
+import { globleContext } from "../../Store/Context";
 const Categories = ({ onSelectedValue }) => {
-  console.log(Stories());
   const [selectedId, setSelectedId] = useState(0);
   const handleSelectTeck = (data, id) => {
-    // onSelectedValue(data.name);
+    onSelectedValue(data.name);
     setSelectedId(id);
   };
   const getSelectedClass = (id) =>
