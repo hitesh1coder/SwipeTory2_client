@@ -10,10 +10,11 @@ import RegisterModal from "../FormModals/RegisterModal/RegisterModal";
 import LoginModal from "../FormModals/LoginModal/LoginModal";
 import AddStoryModal from "../FormModals/AddStoryModal/AddStoryModal";
 import { globleContext } from "../Store/Context";
+import axios from "axios";
 
 const Home = () => {
   // Get the necessary data and functions from the global context
-  const { user, stories, setStories, showRegisterModal, setShowRegisterModal } =
+  const { user, setStories, showRegisterModal, setShowRegisterModal } =
     globleContext();
 
   // Define the story categories to display
@@ -39,6 +40,20 @@ const Home = () => {
   const handleShowBookmark = () => {
     setShowBookmarks((curr) => !curr);
   };
+
+  const fetchStories = async () => {
+    const response = await axios.get(
+      `${
+        import.meta.env.VITE_SERVER_HOST
+      }/story/category?category=${selectedFilter}`
+    );
+    const { data } = response;
+    console.log(data);
+    // setStories(data);
+  };
+  useEffect(() => {
+    fetchStories();
+  }, [selectedFilter]);
 
   return (
     // Render the Home page components

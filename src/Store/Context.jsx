@@ -1,20 +1,19 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const Story = createContext();
 
 const Context = ({ children }) => {
   const [stories, setStories] = useState([]);
-  const [user, setUser] = useState("hitesh");
+  const [user, setUser] = useState();
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-  // useEffect(() => {
-  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  //   setUser(userInfo);
-  //   if (!userInfo) {
-  //     history.push("/");
-  //   }
-  // }, [history]);
-
+  useEffect(() => {
+    if (localStorage.getItem("swipetory_user")) {
+      setUser(JSON.parse(localStorage.getItem("swipetory_user")));
+    } else {
+      setUser("");
+    }
+  }, []);
   return (
     <Story.Provider
       value={{

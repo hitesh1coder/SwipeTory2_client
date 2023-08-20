@@ -2,31 +2,36 @@ import React, { useState } from "react";
 import storyModelStyles from "./AddStory.module.css";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
+import { globleContext } from "../../Store/Context";
+
 const AddStoryModal = ({ handleCloseAddStoryModal }) => {
-  // const userData = JSON.parse(localStorage.getItem("swipetory_user"));
-  const userId = "1";
-  const token = "token";
+  const { user } = globleContext();
+  const userId = user?.userid;
+  const token = user.token;
   const [forms, setForms] = useState([
     {
+      userId: userId,
       heading: "",
       imageurl: "",
       description: "",
       category: "",
-      userId: userId,
+      likes: [],
     },
     {
+      userId: userId,
       heading: "",
       imageurl: "",
       description: "",
       category: "",
-      userId: userId,
+      likes: [],
     },
     {
+      userId: userId,
       heading: "",
       imageurl: "",
       description: "",
       category: "",
-      userId: userId,
+      likes: [],
     },
   ]);
 
@@ -72,11 +77,13 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
     }
   };
   const handleSelectSlide = (i) => {
+    let formIndex;
+    i <= 0 ? (formIndex = forms[i]) : (formIndex = forms[i - 1]);
     if (
-      forms[i].category &&
-      forms[i].heading &&
-      forms[i].imageurl &&
-      forms[i].description
+      formIndex.category !== "" &&
+      formIndex.heading !== "" &&
+      formIndex.imageurl !== "" &&
+      formIndex.description !== ""
     ) {
       setCurrentForm(i);
       setError(false);
@@ -115,35 +122,44 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (forms.length < 2) {
+    const isFormEmpty = forms.some((form) => {
+      return (
+        !form.category && !form.heading && !form.imageurl && !form.description
+      );
+    });
+
+    if (isFormEmpty) {
       setError(true);
       return;
     }
 
     setError(false);
 
-    toast.loading("loading...");
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER_HOST}/story/create/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            token: token,
-          },
-          body: JSON.stringify({ forms }),
-        }
-      );
-      console.log(response);
+      const createUrl = `${
+        import.meta.env.VITE_SERVER_HOST
+      }/story/create/${userId}`;
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        body: JSON.stringify({ forms }),
+      };
+
+      const response = await fetch(createUrl, requestOptions);
       if (response.ok) {
         toast.success("Forms submitted successfully");
-        handleCloseAddStoryModal();
+        setTimeout(() => {
+          handleCloseAddStoryModal();
+        }, 3000);
       } else {
-        toast.error("Error submitting forms:");
-        console.error("Error submitting forms:", response.status);
+        toast.error("Please fill all the details of at least 3 slides");
       }
     } catch (error) {
+      toast.error("Error submitting forms");
       console.error("Error submitting forms:", error);
     }
   };
@@ -197,7 +213,7 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
             {forms.map((form, index) => (
               <div
                 className={`${storyModelStyles.form} `}
-                style={{ display: currentForm === index ? "block" : "none" }}
+                style={{ display: currentForm === index ? "flex" : "none" }}
                 key={index}
               >
                 <h2>Slide {index + 1}</h2>

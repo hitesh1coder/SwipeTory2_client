@@ -18,6 +18,7 @@ const Header = ({
     navRef.current.classList.toggle(`${Styles.responsive_nav}`);
   };
   const handleLogOut = () => {
+    localStorage.removeItem("swipetory_user");
     setUser("");
   };
   return (
@@ -89,12 +90,12 @@ const Header = ({
                   src={userpicture}
                   alt="dispaypicture"
                 />
-                <h2>hitesh</h2>
+                {user && <h2>{user.username}</h2>}
                 <div
                   style={{ display: openMenu ? `flex` : `none` }}
                   className={Styles.user_menu_box}
                 >
-                  <h3>hitesh</h3>
+                  {user && <h3>{user.username}</h3>}
                   <button onClick={handleLogOut} className={Styles.btn}>
                     {" "}
                     logout

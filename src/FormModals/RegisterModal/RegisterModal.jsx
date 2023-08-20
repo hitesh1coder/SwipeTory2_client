@@ -3,8 +3,10 @@ import styles from "./RegisterModel.module.css";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { globleContext } from "../../Store/Context";
 
 const RegisterModel = ({ handleCloseRegisterModal }) => {
+  const { setUser } = globleContext();
   const [formValue, setFormValue] = useState({
     username: "",
     password: "",
@@ -42,12 +44,12 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
       // Check if registration was successful
       if (data.status === "success") {
         toast.success("User Registered Successfully");
+        // Store user data in local storage
+        setUser(data);
+        localStorage.setItem("swipetory_user", JSON.stringify(data));
       } else {
         toast.error("Something went wrong");
       }
-
-      // Store user data in local storage
-      localStorage.setItem("swipetory_user", JSON.stringify(data));
 
       setTimeout(() => {
         handleCloseRegisterModal();

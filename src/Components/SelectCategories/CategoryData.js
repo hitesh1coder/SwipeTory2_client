@@ -22,7 +22,7 @@ export const categoriesData = [
     img: Travel,
   },
   {
-    name: "movies",
+    name: "movie",
     img: Movies,
   },
   {

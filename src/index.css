@@ -1,10 +1,10 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
-.App{
+.App {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }

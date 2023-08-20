@@ -3,8 +3,10 @@ import loginModalStyles from "./LoginModel.module.css";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { globleContext } from "../../Store/Context";
 
 const LoginModel = ({ handleCloseLoginModal }) => {
+  const { user, setUser } = globleContext();
   const [formValue, setFormValue] = useState({
     username: "",
     password: "",
@@ -36,13 +38,14 @@ const LoginModel = ({ handleCloseLoginModal }) => {
         } else {
           toast.error("Something went wrong");
         }
+        setUser(data);
         localStorage.setItem("swipetory_user", JSON.stringify(data));
-
         setTimeout(() => {
           handleCloseLoginModal();
         }, 3000);
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
+        toast.error(error.response.data.message);
       }
     }
   };
