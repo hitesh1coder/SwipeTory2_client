@@ -34,13 +34,15 @@ const SingleStoryCard = ({ story }) => {
   return (
     <>
       {isLoading ? (
-        <div className={styles.card_container}>
-          <SkeletonTheme baseColor="#999999" highlightColor="#adadad">
-            <p>
-              <Skeleton height={330} />
-            </p>
-          </SkeletonTheme>
-        </div>
+        <>
+          <div className={styles.card_container}>
+            <SkeletonTheme baseColor="#adadad" highlightColor="#cccccc">
+              <div className={styles.skeleton}>
+                <Skeleton height={330} />
+              </div>
+            </SkeletonTheme>
+          </div>
+        </>
       ) : (
         <div onClick={handleClick} className={styles.card_container}>
           <img src={story.imageurl} alt={story.heading} />

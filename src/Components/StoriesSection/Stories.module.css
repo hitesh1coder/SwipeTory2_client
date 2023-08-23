@@ -1,84 +1,88 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* width: 100vw; */
-    margin: 0.5rem 0;
-    align-items: center;
-    padding: 0.5rem;
-    gap: 1rem;
-  }
-  .container .heading {
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0.5rem 0;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+.container .heading {
+  text-align: center;
+}
+.story_cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.see_more_btn {
+  margin-top: 1rem;
+  border: none;
+  outline: none;
+  padding: 0.6rem;
+  font-weight: 600;
+  width: 5rem;
+  border-radius: 1.4rem;
+  margin: 0 0.3rem;
+  color: #fff;
+  cursor: pointer;
+  background-color: #ff7373;
+}
+.card_details {
+  bottom: 1rem;
+  padding: 1rem;
+  width: 95%;
+  position: absolute;
+  color: #fff;
+}
+
+.card_container {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: 55vh;
+  margin: 0 0.3rem;
+  position: relative;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  overflow-y: hidden;
+}
+.card_container img {
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  width: 20vw;
+  height: 55vh;
+}
+.edit_btn {
+  position: absolute;
+  left: 40%;
+  bottom: 3px;
+  cursor: pointer;
+  width: 3rem;
+  border: none;
+  outline: none;
+  background: #fff;
+  font-weight: 600;
+  border-radius: 1.2rem;
+  box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.3);
+}
+.Skeleton {
+  text-align: center;
+  width: 50%;
+  height: 2rem;
+}
+/* Responcive  code  */
+@media only screen and (max-width: 470px) {
   .story_cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  .see_more_btn {
-    margin-top: 1rem;
-    border: none;
-    outline: none;
-    padding: 0.6rem;
-    font-weight: 600;
-    width: 5rem;
-    border-radius: 1.4rem;
-    margin: 0 0.3rem;
-    color: #fff;
-    cursor: pointer;
-    background-color: #ff7373;
-  }
-  .card_details {
-    bottom: 1rem;
-    padding: 1rem;
-    width: 95%;
-    position: absolute;
-    color: #fff;
-  }
-  
-  .card_container {
-    display: flex;
+    flex-wrap: nowrap;
     flex-direction: column;
-    width: 20vw;
-    height: 55vh;
-    margin: 0 0.3rem;
-    position: relative;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    overflow-y: hidden;
+    padding: 0 2rem;
+    gap: 0.5rem;
   }
+  .card_container,
   .card_container img {
-    border: 1px solid #fff;
-    border-radius: 0.5rem;
-    width: 20vw;
-    height: 55vh;
+    width: 100%;
+    height: 50vh;
   }
-  .edit_btn {
-    position: absolute;
-    left: 40%;
-    bottom: 3px;
-    cursor: pointer;
-    width: 3rem;
-    border: none;
-    outline: none;
-    background: #fff;
-    font-weight: 600;
-    border-radius: 1.2rem;
-    box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.3);
-  }
-  /* Responcive  code  */
-  @media only screen and (max-width: 470px) {
-    .story_cards {
-      flex-wrap: nowrap;
-      flex-direction: column;
-      padding: 0 2rem;
-      gap: 0.5rem;
-    }
-    .card_container,
-    .card_container img {
-      width: 100%;
-      height: 50vh;
-    }
-  }
-  
+}

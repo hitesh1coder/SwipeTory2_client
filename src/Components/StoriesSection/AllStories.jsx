@@ -13,14 +13,17 @@ const AllStories = ({ Heading, name }) => {
     <>
       {isLoading ? (
         <div className={styles.container}>
-          <p>loading...</p>
-          <SkeletonTheme baseColor="#999999" highlightColor="#adadad">
-            <div className={styles.story_cards}>
-              <p>
-                <Skeleton />
-              </p>
+          <SkeletonTheme baseColor="#adadad" highlightColor="#cccccc">
+            <div className={styles.Skeleton}>
+              <Skeleton height={30} />
             </div>
           </SkeletonTheme>
+          <div className={styles.story_cards}>
+            <SingleStoryCard />
+            <SingleStoryCard />
+            <SingleStoryCard />
+            <SingleStoryCard />
+          </div>
         </div>
       ) : (
         <>

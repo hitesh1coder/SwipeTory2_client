@@ -52,7 +52,6 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   }, [currentStoryIndex]);
 
   const handleShareStory = async (copyMe) => {
-    console.log(copyMe);
     try {
       await navigator.clipboard.writeText(copyMe);
       setCopySucces("copy to clipboard");
@@ -72,7 +71,6 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
       }/story/bookmark/${userId}`;
       const config = { headers };
       const response = await axios.post(url, { storyData }, config);
-      console.log(response);
 
       if (response.status === "SUCCESS") {
         setBookmarked(true);

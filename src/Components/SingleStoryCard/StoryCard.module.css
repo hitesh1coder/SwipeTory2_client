@@ -50,4 +50,8 @@
     width: 100%;
     height: 50vh;
   }
+  .skeleton {
+    width: 80vw;
+    height: 55vh;
+  }
 }
