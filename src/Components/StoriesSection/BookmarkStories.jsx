@@ -5,11 +5,9 @@ import Header from "../Header/Header";
 import { globleContext } from "../../Store/Context";
 
 const BookmarkStories = () => {
-  const { user } = globleContext();
   // Get user bookmarks from local storage
-  //   const { bookmarks } = JSON.parse(localStorage.getItem("swipetory_user"));
-  const bookmarks = [];
-  const { stories } = globleContext();
+  // const { bookmarks } = JSON.parse(localStorage.getItem("swipetory_user"));
+  const { stories, bookmarks } = globleContext();
   return (
     <>
       {/* <Header /> */}

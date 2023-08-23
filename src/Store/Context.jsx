@@ -5,11 +5,16 @@ const Story = createContext();
 const Context = ({ children }) => {
   const [stories, setStories] = useState([]);
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [viewStoryModal, setViewStoryModal] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("swipetory_user")) {
-      setUser(JSON.parse(localStorage.getItem("swipetory_user")));
+      const getUser = JSON.parse(localStorage.getItem("swipetory_user"));
+      setUser(getUser);
+      setBookmarks(getUser.bookmarks);
     } else {
       setUser("");
     }
@@ -23,6 +28,12 @@ const Context = ({ children }) => {
         setUser,
         showRegisterModal,
         setShowRegisterModal,
+        viewStoryModal,
+        setViewStoryModal,
+        isLoading,
+        setIsLoading,
+        bookmarks,
+        setBookmarks,
       }}
     >
       {children}

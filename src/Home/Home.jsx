@@ -14,8 +14,13 @@ import axios from "axios";
 
 const Home = () => {
   // Get the necessary data and functions from the global context
-  const { user, setStories, showRegisterModal, setShowRegisterModal } =
-    globleContext();
+  const {
+    user,
+    setStories,
+    showRegisterModal,
+    setShowRegisterModal,
+    setIsLoading,
+  } = globleContext();
 
   // Define the story categories to display
   const storyCategory = categoriesData.slice(1, 7);
@@ -42,14 +47,15 @@ const Home = () => {
   };
 
   const fetchStories = async () => {
+    setIsLoading(true);
     const response = await axios.get(
       `${
         import.meta.env.VITE_SERVER_HOST
       }/story/category?category=${selectedFilter}`
     );
     const { data } = response;
-    console.log(data);
-    // setStories(data);
+    setIsLoading(false);
+    setStories(data);
   };
   useEffect(() => {
     fetchStories();
