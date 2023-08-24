@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Styles from "./Header.module.css";
 import bookmarkIcon from "../../images/icons8-bookmark-50.png";
-import closeIcon from "../../images/icons8-close-50 (2).png";
+import closeIcon from "../../images/closeIcon.png";
 import menuIcon from "../../images/icons8-menu-24.png";
 import userpicture from "../../images/userIcon.png";
 import { globleContext } from "../../Store/Context";
@@ -20,6 +20,7 @@ const Header = ({
   const handleLogOut = () => {
     localStorage.removeItem("swipetory_user");
     setUser("");
+    setOpenMenu(false);
   };
   return (
     <>
@@ -29,13 +30,13 @@ const Header = ({
         </div>
         {!user ? (
           <div>
-            <img
-              onClick={showNavbar}
-              className={Styles.close_icon}
-              src={closeIcon}
-              alt="close"
-            />
             <div ref={navRef} className={Styles.header_content}>
+              <img
+                onClick={showNavbar}
+                className={Styles.close_icon}
+                src={closeIcon}
+                alt="close"
+              />
               <button
                 onClick={() => setShowRegisterModal(true)}
                 className={Styles.btn}
@@ -112,6 +113,7 @@ const Header = ({
           </div>
         )}
         <img
+          style={{ display: user ? `block` : `none` }}
           onClick={showNavbar}
           className={Styles.menu_icon}
           src={menuIcon}

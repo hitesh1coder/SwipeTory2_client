@@ -7,4 +7,5 @@
 .App {
   display: flex;
   flex-direction: column;
+  -webkit-tap-highlight-color: transparent;
 }

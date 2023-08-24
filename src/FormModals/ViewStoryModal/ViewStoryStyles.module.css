@@ -43,6 +43,19 @@
   top: 1rem;
   position: absolute;
 }
+.storybar {
+  margin: 0 0.2rem;
+  height: 0.3rem;
+  background: #fff;
+  position: relative;
+}
+.animate {
+  background-color: #bababa;
+  position: absolute;
+  height: 0.2rem;
+  width: 98%;
+}
+
 .btns {
   display: flex;
   flex-direction: row;
@@ -53,38 +66,22 @@
   position: absolute;
 }
 .btns img,
-.btns2 img {
+.buttons_div img {
   cursor: pointer;
   width: 1.5rem;
 }
-.btns2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  bottom: 0.3rem;
-  padding: 0 1rem;
-  position: absolute;
-}
+
 .copy_success {
+  font-size: 1.4rem;
   position: absolute;
-  color: gray;
+  color: red;
   top: 50%;
-  left: 2rem;
+  left: 5rem;
   background: #fff;
-  border: 2px solid gray;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
+  margin: 0.4rem;
 }
 
-.storybar {
-  margin: 0 0.2rem;
-  height: 0.2rem;
-  color: #fff;
-  background-color: #bababa;
-}
-.animate {
-  background-color: #fff;
-}
 .card {
   display: flex;
   width: 20vw;
@@ -92,11 +89,20 @@
   flex-wrap: wrap;
 }
 .card_details {
-  bottom: 1rem;
+  bottom: 2.5rem;
   padding: 1rem;
   width: 95%;
   position: absolute;
   color: #fff;
+}
+.buttons_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  bottom: 1rem;
+  padding: 0 1rem;
+  position: absolute;
 }
 .like_btn {
   position: absolute;
@@ -125,8 +131,8 @@
   .next_btn {
     position: absolute;
     z-index: 4;
-    height: 80vh;
-    width: 25vw;
+    height: 70vh;
+    width: 35vw;
     font-size: 0;
   }
   .prev_btn {

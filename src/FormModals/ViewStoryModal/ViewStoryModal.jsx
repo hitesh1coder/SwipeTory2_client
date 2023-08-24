@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import ModalStoryStyles from "./ViewStoryStyles.module.css";
+import Styles from "./ViewStoryStyles.module.css";
 import CloseIcon from "../../images/icons8-close-50 (1).png";
 import shareIcon from "../../images/icons8-telegram-50.png";
 import bookMarkIcon from "../../images/icons8-bookmark-50.png";
@@ -35,12 +35,7 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   };
 
   useEffect(() => {
-    setInProgress(true);
-    if (barWidth === 0) {
-      setBarWidth(100);
-    } else if (barWidth === 100) {
-      setBarWidth(0);
-    }
+    inProgress ? setBarWidth(0) : setBarWidth(100);
   }, [currentStory]);
 
   useEffect(() => {
@@ -51,9 +46,12 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
     setCurrentStory(stories[currentStoryIndex + 1]);
   }, [currentStoryIndex]);
 
-  const handleShareStory = async (copyMe) => {
+  const handleShareStory = async (story) => {
+    const url = `${
+      import.meta.env.VITE_SERVER_HOST
+    }/story/singlestory/${story}`;
     try {
-      await navigator.clipboard.writeText(copyMe);
+      await navigator.clipboard.writeText(url);
       setCopySucces("copy to clipboard");
       setTimeout(() => {
         setCopySucces("");
@@ -103,55 +101,38 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   };
 
   const goToNextStory = () => {
-    setCurrentStoryIndex((prevIndex) => {
-      if (prevIndex !== stories.length - 1) {
-        return prevIndex + 1;
-      } else {
-        closeViewStoryModal();
-        return prevIndex;
-      }
-    });
+    setInProgress(false);
 
-    setLikes(stories[currentStoryIndex + 1].likes.length);
+    const nextStoryIndex = currentStoryIndex + 1;
+    const nextStory = stories[nextStoryIndex];
 
-    if (stories[currentStoryIndex + 1].likes.includes(userId)) {
-      setLiked(true);
+    setCurrentStoryIndex(nextStoryIndex);
+
+    if (nextStory) {
+      setLikes(nextStory.likes.length);
+      setLiked(nextStory.likes.includes(userId));
+      setBookmarked(bookmarks?.some((story) => story._id === nextStory._id));
     } else {
-      setLiked(false);
-    }
-    const isCurrentStoryBookmarked = bookmarks?.some(
-      (story) => story._id === stories[currentStoryIndex + 1]._id
-    );
-    if (isCurrentStoryBookmarked) {
-      setBookmarked(true);
-    } else {
-      setBookmarked(false);
+      closeViewStoryModal();
     }
   };
 
   const goToPreviousStory = () => {
-    setCurrentStoryIndex((prevIndex) => {
-      if (prevIndex > 0) {
-        return prevIndex - 1;
-      } else {
-        return prevIndex;
-      }
-    });
-    setLikes(stories[currentStoryIndex + 1].likes.length);
-    if (stories[currentStoryIndex + 1].likes.includes(userId)) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
+    setInProgress((prev) => !prev);
+    setCurrentStoryIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : prevIndex
+    );
+
+    const nextStoryIndex = currentStoryIndex + 1;
+    const nextStory = stories[nextStoryIndex];
+
+    setLikes(nextStory.likes.length);
+    setLiked(nextStory.likes.includes(userId));
 
     const isCurrentStoryBookmarked = bookmarks?.some(
-      (story) => story._id === stories[currentStoryIndex + 1]._id
+      (story) => story._id === nextStory._id
     );
-    if (isCurrentStoryBookmarked) {
-      setBookmarked(true);
-    } else {
-      setBookmarked(false);
-    }
+    setBookmarked(isCurrentStoryBookmarked);
   };
 
   const playStories = () => {
@@ -163,74 +144,65 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
       }
       return isLastIndex ? prevIndex : prevIndex + 1;
     });
-    setLikes(stories[currentStoryIndex + 1].likes.length);
-    if (stories[currentStoryIndex + 1].likes.includes(userId)) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
 
-    const isCurrentStoryBookmarked = bookmarks?.some(
-      (story) => story._id === stories[currentStoryIndex + 1]._id
-    );
-    if (isCurrentStoryBookmarked) {
-      setBookmarked(true);
-    } else {
-      setBookmarked(false);
-    }
+    const nextStoryIndex = currentStoryIndex + 1;
+    const nextStory = stories[nextStoryIndex];
+
+    setLikes(nextStory.likes.length);
+    setLiked(nextStory.likes.includes(userId));
+    setBookmarked(bookmarks?.some((story) => story._id === nextStory._id));
   };
+
   useEffect(() => {
-    const interval = setInterval(playStories, 5000);
+    const interval = setInterval(playStories, 8000);
     return () => clearInterval(interval);
   }, [currentStory]);
 
   return (
     <>
-      <div
-        onClick={closeViewStoryModal}
-        className={ModalStoryStyles.wrapper}
-      ></div>
-      <div className={ModalStoryStyles.modal_container}>
-        <div onClick={goToPreviousStory} className={ModalStoryStyles.prev_btn}>
+      <div onClick={closeViewStoryModal} className={Styles.wrapper}></div>
+      <div className={Styles.modal_container}>
+        <div onClick={goToPreviousStory} className={Styles.prev_btn}>
           prev
         </div>
-        <div className={ModalStoryStyles.card_container}>
+        <div className={Styles.card_container}>
           <img src={stories[currentStoryIndex].imageurl} alt="story" />
-          <div className={ModalStoryStyles.btns}>
+          <div className={Styles.btns}>
             <img
-              className={ModalStoryStyles.close_btn}
+              className={Styles.close_btn}
               onClick={closeViewStoryModal}
               src={CloseIcon}
               alt="close"
             />
             <img
-              className={ModalStoryStyles.share_btn}
+              className={Styles.share_btn}
               src={shareIcon}
-              onClick={() => handleShareStory(stories[currentStoryIndex])}
+              onClick={() => handleShareStory(stories[currentStoryIndex]._id)}
               alt="share"
             />
           </div>
-          <div className={ModalStoryStyles.storycount}>
+          <div className={Styles.storycount}>
+            <div className={Styles.animate}></div>
             <div
               style={{
-                transition: `ease-in 5s width`,
-                width: `${barWidth}%`,
+                transition: `ease-in 8s width`,
+                width: ` ${barWidth}%`,
               }}
-              className={ModalStoryStyles.storybar}
+              className={Styles.storybar}
             ></div>
           </div>
-          <h2 className={ModalStoryStyles.copy_success}>{copySuccess}</h2>
-          <div className={ModalStoryStyles.card_details}>
-            <h2 className={ModalStoryStyles.heading}>
+          <h3 className={Styles.copy_success}>{copySuccess}</h3>
+          <div className={Styles.card_details}>
+            <h2 className={Styles.heading}>
               {stories[currentStoryIndex].heading}
             </h2>
-            <p className={ModalStoryStyles.desc}>
+            <p className={Styles.desc}>
               {stories[currentStoryIndex].description}
             </p>
           </div>
-          <div className={ModalStoryStyles.btns2}>
+          <div className={Styles.buttons_div}>
             <img
-              className={ModalStoryStyles.bookmark_btn}
+              className={Styles.bookmark_btn}
               onClick={() =>
                 user
                   ? handleBookmarks(stories[currentStoryIndex])
@@ -241,15 +213,15 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
               alt="close"
             />
             <img
-              className={ModalStoryStyles.like_btn}
+              className={Styles.like_btn}
               onClick={() => (user ? handleLike() : handleUserExitst())}
               src={liked ? likedIcon : likeIcon}
               alt="share"
             />
-            <span className={ModalStoryStyles.likes_count}>{likes}</span>
+            <span className={Styles.likes_count}>{likes}</span>
           </div>
         </div>
-        <div onClick={goToNextStory} className={ModalStoryStyles.next_btn}>
+        <div onClick={goToNextStory} className={Styles.next_btn}>
           next
         </div>
       </div>
