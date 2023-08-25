@@ -6,7 +6,7 @@ import axios from "axios";
 import { globleContext } from "../../Store/Context";
 
 const LoginModel = ({ handleCloseLoginModal }) => {
-  const { user, setUser } = globleContext();
+  const { setUser } = globleContext();
   const [formValue, setFormValue] = useState({
     username: "",
     password: "",

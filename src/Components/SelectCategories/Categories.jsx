@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Styles from "./Category.module.css";
 import { categoriesData } from "./CategoryData";
-import { globleContext } from "../../Store/Context";
+
 const Categories = ({ onSelectedValue }) => {
   const [selectedId, setSelectedId] = useState(0);
   const handleSelectTeck = (data, id) => {
@@ -21,7 +21,7 @@ const Categories = ({ onSelectedValue }) => {
             }}
             className={`${Styles.category_card}  ${getSelectedClass(i)} `}
           >
-            <h5>{category.name}</h5>
+            <h4>{category.name}</h4>
             <img src={category.img} alt={category.img} />
           </div>
         ))}

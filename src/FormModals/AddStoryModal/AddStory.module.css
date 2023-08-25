@@ -110,6 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0.4rem 0;
 }
 .input_box label {
   font-weight: 600;
@@ -166,26 +167,15 @@ select {
     height: 60vh;
     border-radius: 0.4rem;
   }
-  .login_model_form {
-    width: 100%;
-  }
-  .login_model_form h1 {
-    display: none;
-  }
-  .signin_model_btn {
-    width: 90%;
-    position: relative;
-    right: -1rem;
-    bottom: -2rem;
-  }
-  .model_banner {
-    display: none;
-  }
-}
 
-/* Responcive  code  */
-@media only screen and (max-width: 470px) {
   .addstory_model {
     width: 95vw;
+  }
+  .btns {
+    justify-content: center;
+  }
+
+  .model_banner {
+    display: none;
   }
 }

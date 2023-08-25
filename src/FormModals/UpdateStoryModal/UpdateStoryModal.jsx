@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import storyModelStyles from "../AddStoryModal/AddStory.module.css";
+import Styles from "../AddStoryModal/AddStory.module.css";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
@@ -56,26 +56,26 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
   return (
     <>
       <div
-        className={storyModelStyles.model_wrapper}
+        className={Styles.model_wrapper}
         onClick={handleCloseUpdateStoryModal}
       ></div>
       <Toaster />
-      <div className={storyModelStyles.addstory_model}>
-        <div className={storyModelStyles.addstory_model_form}>
+      <div className={Styles.addstory_model}>
+        <div className={Styles.addstory_model_form}>
           <span
-            className={storyModelStyles.close_btn}
+            className={Styles.close_btn}
             onClick={handleCloseUpdateStoryModal}
           >
             <img src={closeIcon} alt="close" />
           </span>
 
-          <div className={storyModelStyles.form_container}>
-            <div className={`${storyModelStyles.form} `}>
+          <div className={Styles.form_container}>
+            <div className={`${Styles.form} `}>
               <h2>UpDate This Story</h2>
-              <div className={storyModelStyles.input_box}>
+              <div className={Styles.input_box}>
                 <label htmlFor="heading">Heading :</label>
                 <input
-                  className={storyModelStyles.input}
+                  className={Styles.input}
                   type="text"
                   name="heading"
                   placeholder="Your Heading"
@@ -83,10 +83,10 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
                   value={formValue.heading}
                 />
               </div>
-              <div className={storyModelStyles.input_box}>
+              <div className={Styles.input_box}>
                 <label htmlFor="description">Description :</label>
                 <textarea
-                  className={storyModelStyles.input}
+                  className={Styles.input}
                   type="text"
                   name="description"
                   placeholder="Story description"
@@ -94,10 +94,10 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
                   value={formValue.description}
                 />
               </div>
-              <div className={storyModelStyles.input_box}>
+              <div className={Styles.input_box}>
                 <label htmlFor="heading">Image :</label>
                 <input
-                  className={storyModelStyles.input}
+                  className={Styles.input}
                   type="text"
                   name="imageurl"
                   placeholder="Your Image Url"
@@ -105,12 +105,12 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
                   value={formValue.imageurl}
                 />
               </div>
-              <div className={storyModelStyles.input_box}>
+              <div className={Styles.input_box}>
                 <label htmlFor="category">Category :</label>
                 <select
                   name="category"
                   id=""
-                  className={storyModelStyles.input}
+                  className={Styles.input}
                   onChange={handleChange}
                   value={formValue.category}
                 >
@@ -124,29 +124,12 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
               </div>
             </div>
           </div>
-          <p className={storyModelStyles.error}>
+          <p className={Styles.error}>
             {error ? "Please fill all the fields and minimum 3 slides" : ""}
           </p>
 
-          <div className={storyModelStyles.btns}>
-            <div className={storyModelStyles.slides_btns}>
-              <button
-                // onClick={prevSlideHandler}
-                className={storyModelStyles.modal_preve__btn}
-              >
-                Previous
-              </button>
-              <button
-                // onClick={nextslideHandler}
-                className={storyModelStyles.modal_next__btn}
-              >
-                Next
-              </button>
-            </div>
-            <button
-              onClick={handleUpdate}
-              className={storyModelStyles.modal_post__btn}
-            >
+          <div className={Styles.btns}>
+            <button onClick={handleUpdate} className={Styles.modal_post__btn}>
               Update
             </button>
           </div>

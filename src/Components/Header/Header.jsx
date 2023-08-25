@@ -19,8 +19,9 @@ const Header = ({
   };
   const handleLogOut = () => {
     localStorage.removeItem("swipetory_user");
+    showNavbar();
     setUser("");
-    setOpenMenu(false);
+    setShowLoginModal(false);
   };
   return (
     <>

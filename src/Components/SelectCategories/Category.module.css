@@ -14,16 +14,16 @@
   border-radius: 1.3rem;
   position: relative;
   height: 22vh;
-  width: 12vw;
+  width: 12.7vw;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .selected {
-  border: 3px solid rgb(7, 117, 242);
+  border: 5px solid rgb(7, 117, 242);
 }
-.category_card h5 {
+.category_card h4 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,9 +48,12 @@
     gap: 1rem;
   }
   .category_card,
-  .category_card h5,
+  .category_card h4,
   .category_card img {
-    min-width: 25vw;
+    min-width: 50vw;
     height: 15vh;
+  }
+  .selected {
+    border: 68px solid rgb(7, 117, 242);
   }
 }
