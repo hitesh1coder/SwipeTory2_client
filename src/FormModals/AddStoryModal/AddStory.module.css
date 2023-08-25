@@ -25,7 +25,6 @@
 
 .addstory_model_form {
   display: flex;
-
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -86,7 +85,6 @@
   top: 2.5rem;
 }
 .addstory_model_form p {
-  /* margin-bottom: 1rem; */
   font-weight: 600;
 }
 .form_container {

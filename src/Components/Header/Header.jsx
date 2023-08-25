@@ -86,7 +86,6 @@ const Header = ({
               </button>
               <div className={Styles.user_container}>
                 <img
-                  onClick={() => setOpenMenu(!openMenu)}
                   className={Styles.user}
                   src={userpicture}
                   alt="dispaypicture"
@@ -109,13 +108,20 @@ const Header = ({
               >
                 Logout
               </button>
+              <img
+                style={{ display: user ? `block` : `none` }}
+                onClick={() => setOpenMenu(!openMenu)}
+                className={Styles.menu_icon}
+                src={menuIcon}
+                alt="menu"
+              />
             </div>
           </div>
         )}
+
         <img
-          style={{ display: user ? `block` : `none` }}
           onClick={showNavbar}
-          className={Styles.menu_icon}
+          className={Styles.mobile_menu}
           src={menuIcon}
           alt="menu"
         />

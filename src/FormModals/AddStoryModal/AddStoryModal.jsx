@@ -50,7 +50,7 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
   };
 
   const addForm = () => {
-    if (forms.length > 4) {
+    if (forms.length > 5) {
       setMaxSlides(true);
     } else {
       setMaxSlides(false);
@@ -76,6 +76,7 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
       setError(true);
     }
   };
+
   const handleSelectSlide = (i) => {
     let formIndex;
     i <= 0 ? (formIndex = forms[i]) : (formIndex = forms[i - 1]);
@@ -195,7 +196,11 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
                     onClick={removeForm}
                     className={storyModelStyles.cutslide}
                   >
-                    <img src={closeIcon} alt="close" />
+                    <img
+                      style={{ display: forms.length <= 3 ? "none" : "block" }}
+                      src={closeIcon}
+                      alt="close"
+                    />
                   </span>
                 </div>
               );
