@@ -4,8 +4,8 @@ import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
 import { globleContext } from "../../Store/Context";
 
-const AddStoryModal = ({ handleCloseAddStoryModal }) => {
-  const { user } = globleContext();
+const AddStoryModal = () => {
+  const { user, handleCloseAddStoryModal } = globleContext();
   const userId = user?.userid;
   const token = user.token;
   const [forms, setForms] = useState([
@@ -151,7 +151,7 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
       };
 
       const response = await fetch(createUrl, requestOptions);
-      if (response.ok) {
+      if (response.status === 200) {
         toast.success("Forms submitted successfully");
         setTimeout(() => {
           handleCloseAddStoryModal();
@@ -160,8 +160,7 @@ const AddStoryModal = ({ handleCloseAddStoryModal }) => {
         toast.error("Please fill all the details of at least 3 slides");
       }
     } catch (error) {
-      toast.error("Error submitting forms");
-      console.error("Error submitting forms:", error);
+      toast.error(error?.response?.data?.message);
     }
   };
   return (

@@ -8,7 +8,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 const SingleStoryCard = ({ story }) => {
   const { stories, isLoading } = globleContext();
   const [viewStoryModal, setViewStoryModal] = useState(false);
-  const [storyId, setStoryId] = useState();
 
   const closeViewStoryModal = () => {
     setViewStoryModal(false);
@@ -28,7 +27,6 @@ const SingleStoryCard = ({ story }) => {
 
   const handleClick = () => {
     setViewStoryModal(true);
-    setStoryId(story._id);
   };
 
   return (
@@ -55,7 +53,7 @@ const SingleStoryCard = ({ story }) => {
       )}
       {viewStoryModal && (
         <ViewStory
-          storyId={storyId}
+          storyId={story._id}
           closeViewStoryModal={closeViewStoryModal}
         />
       )}

@@ -21,6 +21,7 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(
     stories.findIndex((story) => story._id === storyId)
   );
+
   const [currentStory, setCurrentStory] = useState(stories[currentStoryIndex]);
   const [liked, setLiked] = useState(currentStory?.likes.includes(userId));
   const [likes, setLikes] = useState(currentStory?.likes.length);

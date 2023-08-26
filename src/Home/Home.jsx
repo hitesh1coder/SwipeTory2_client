@@ -20,13 +20,15 @@ const Home = () => {
     showRegisterModal,
     setShowRegisterModal,
     setIsLoading,
+    showAddStoryModal,
+    setShowAddStoryModal,
   } = globleContext();
 
   // Define the story categories to display
   const storyCategory = categoriesData.slice(1, 7);
 
   // Define the state variables
-  const [showAddStoryModal, setShowAddStoryModal] = useState(false);
+
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -34,7 +36,6 @@ const Home = () => {
   // Define the event handlers
   const handleCloseRegisterModal = () => setShowRegisterModal(false);
   const handleCloseLoginModal = () => setShowLoginModal(false);
-  const handleCloseAddStoryModal = () => setShowAddStoryModal(false);
 
   // Handle the selected filter from the child component
   const handleChildData = (data) => {
@@ -59,7 +60,7 @@ const Home = () => {
   };
   useEffect(() => {
     fetchStories();
-  }, [selectedFilter]);
+  }, [selectedFilter, showAddStoryModal]);
 
   return (
     // Render the Home page components
@@ -83,9 +84,7 @@ const Home = () => {
       )}
 
       {/* Display the add story modal if showAddStoryModal is true */}
-      {showAddStoryModal && (
-        <AddStoryModal handleCloseAddStoryModal={handleCloseAddStoryModal} />
-      )}
+      {showAddStoryModal && <AddStoryModal />}
 
       {/* Display the bookmarked stories if showBookmarks is true and user is logged in */}
       {showBookmarks && user && <BookmarkStories />}

@@ -7,7 +7,8 @@ const Context = ({ children }) => {
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [viewStoryModal, setViewStoryModal] = useState(false);
+  const [showAddStoryModal, setShowAddStoryModal] = useState(false);
+
   const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
@@ -19,6 +20,8 @@ const Context = ({ children }) => {
       setUser("");
     }
   }, []);
+
+  const handleCloseAddStoryModal = () => setShowAddStoryModal(false);
   return (
     <Story.Provider
       value={{
@@ -28,8 +31,10 @@ const Context = ({ children }) => {
         setUser,
         showRegisterModal,
         setShowRegisterModal,
-        viewStoryModal,
-        setViewStoryModal,
+
+        showAddStoryModal,
+        setShowAddStoryModal,
+        handleCloseAddStoryModal,
         isLoading,
         setIsLoading,
         bookmarks,

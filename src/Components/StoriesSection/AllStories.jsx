@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useState } from "react";
 import styles from "./Stories.module.css";
 import { globleContext } from "../../Store/Context";
 import SingleStoryCard from "../SingleStoryCard/SinglesStoryCard";
@@ -6,9 +6,11 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const AllStories = ({ Heading, name }) => {
   const { stories, setShowRegisterModal, isLoading } = globleContext();
-  const [isExpanded, toggleSeeMore] = useReducer((state) => !state, false);
+  const [showAll, setShowAll] = useState(false);
 
   const categoryStories = stories.filter((story) => story.category === name);
+
+  const cardsToRender = showAll ? categoryStories : categoryStories.slice(0, 4);
   return (
     <>
       {isLoading ? (
@@ -35,7 +37,7 @@ const AllStories = ({ Heading, name }) => {
                 {Heading} {name}
               </h2>
               <div className={styles.story_cards}>
-                {categoryStories?.map((story, i) => (
+                {cardsToRender?.map((story, i) => (
                   <SingleStoryCard
                     setShowRegisterModal={setShowRegisterModal}
                     key={i}
@@ -43,9 +45,14 @@ const AllStories = ({ Heading, name }) => {
                   />
                 ))}
               </div>
-              <button onClick={toggleSeeMore} className={styles.see_more_btn}>
-                {isExpanded ? "See Less" : "See More"}
-              </button>
+              {categoryStories.length > 4 && (
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className={styles.see_more_btn}
+                >
+                  {showAll ? "Show Less" : "Show More"}
+                </button>
+              )}
             </div>
           )}
         </>

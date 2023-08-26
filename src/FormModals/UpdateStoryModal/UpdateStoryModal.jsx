@@ -3,8 +3,11 @@ import Styles from "../AddStoryModal/AddStory.module.css";
 import closeIcon from "../../images/icons8-close-50 (2).png";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { globleContext } from "../../Store/Context";
 
 const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
+  const { user } = globleContext();
+  const token = user.token;
   const [formValue, setFormValue] = useState({
     heading: storyData.heading,
     imageurl: storyData.imageurl,
@@ -30,22 +33,21 @@ const UpdateStoryModal = ({ handleCloseUpdateStoryModal, storyData }) => {
 
       try {
         const config = {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", token: token },
         };
 
-        const updatedJob = await axios.put(
+        const response = await axios.put(
           `${import.meta.env.VITE_SERVER_HOST}/story/update/${storyId}`,
           { heading, category, imageurl, description, userId },
           config
         );
-
-        if (updatedJob.status === 200) {
+        if (response.status === 200) {
           toast.success(" story updated Successfully");
         } else {
-          toast.error(" story not updated ");
+          toast.error("something went wrong");
         }
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message);
       }
     }
     setTimeout(() => {
