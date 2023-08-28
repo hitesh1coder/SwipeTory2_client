@@ -13,7 +13,7 @@ const SingleStoryCard = ({ story }) => {
     setViewStoryModal(false);
   };
   const renderStoryBars = () => {
-    const renderStories = stories.slice(1, 5);
+    const renderStories = stories.slice(0, 5);
     return renderStories?.map((data, i) => {
       return (
         <div

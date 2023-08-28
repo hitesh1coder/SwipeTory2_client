@@ -6,19 +6,17 @@ import menuIcon from "../../images/icons8-menu-24.png";
 import userpicture from "../../images/userIcon.png";
 import { globleContext } from "../../Store/Context";
 
-const Header = ({
-  setShowLoginModal,
-  setShowAddStoryModal,
-  handleShowBookmark,
-}) => {
+const Header = ({ setShowLoginModal, handleShowBookmark }) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { user, setUser, setShowRegisterModal } = globleContext();
+  const { user, setUser, setShowRegisterModal, setShowAddStoryModal } =
+    globleContext();
   const navRef = useRef();
   const showNavbar = () => {
     navRef.current.classList.toggle(`${Styles.responsive_nav}`);
   };
   const handleLogOut = () => {
     localStorage.removeItem("swipetory_user");
+    setOpenMenu(false);
     showNavbar();
     setUser("");
     setShowLoginModal(false);
@@ -61,7 +59,10 @@ const Header = ({
                 src={closeIcon}
                 alt="close"
               />
-              <button className={`${Styles.btn} ${Styles.your_story_btn}`}>
+              <button
+                onClick={() => showNavbar()}
+                className={`${Styles.btn} ${Styles.your_story_btn}`}
+              >
                 Your Story
               </button>
               <button

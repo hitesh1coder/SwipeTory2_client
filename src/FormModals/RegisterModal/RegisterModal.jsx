@@ -6,7 +6,7 @@ import axios from "axios";
 import { globleContext } from "../../Store/Context";
 
 const RegisterModel = ({ handleCloseRegisterModal }) => {
-  const { setUser } = globleContext();
+  const { setUser, isLoading, setIsLoading } = globleContext();
   const [formValue, setFormValue] = useState({
     username: "",
     password: "",
@@ -18,9 +18,10 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    // Check if username and password are provided
-    if (!formValue.username || !formValue.password) {
+    const { username, password } = formValue;
+    if (!username || !password) {
       setError(true);
       return;
     }
@@ -30,9 +31,6 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      const { username, password } = formValue;
-
-      // Make POST request to register user
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_HOST}/auth/register`,
         { username, password },
@@ -41,11 +39,10 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
 
       const { data } = response;
 
-      // Check if registration was successful
       if (data.status === "success") {
         toast.success("User Registered Successfully");
-        // Store user data in local storage
         setUser(data);
+        setIsLoading(false);
         localStorage.setItem("swipetory_user", JSON.stringify(data));
       } else {
         toast.error("Something went wrong");
@@ -53,8 +50,9 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
 
       setTimeout(() => {
         handleCloseRegisterModal();
-      }, 3000);
+      }, 2000);
     } catch (error) {
+      setIsLoading(false);
       toast.error("Something went wrong");
       console.log(error);
     }
@@ -98,8 +96,15 @@ const RegisterModel = ({ handleCloseRegisterModal }) => {
           <p className={styles.error}>
             {error ? "* all fields required in the form" : ""}
           </p>
-          <button onClick={handleSubmit} className={styles.signup_model_btn}>
-            Register
+          <button
+            style={{
+              backgroundColor: isLoading ? "#b3d2ff" : "#73abff",
+              pointerEvents: isLoading ? "none" : "auto",
+            }}
+            onClick={handleSubmit}
+            className={styles.signup_model_btn}
+          >
+            {isLoading ? "loading..." : "Register"}
           </button>
         </div>
       </div>

@@ -140,7 +140,7 @@ const AddStoryModal = () => {
       const createUrl = `${
         import.meta.env.VITE_SERVER_HOST
       }/story/create/${userId}`;
-
+      console.log(token);
       const requestOptions = {
         method: "POST",
         headers: {
@@ -151,17 +151,18 @@ const AddStoryModal = () => {
       };
 
       const response = await fetch(createUrl, requestOptions);
+
       if (response.status === 200) {
         toast.success("Forms submitted successfully");
-        setTimeout(() => {
-          handleCloseAddStoryModal();
-        }, 3000);
       } else {
-        toast.error("Please fill all the details of at least 3 slides");
+        toast.error("Please login again");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
+    setTimeout(() => {
+      handleCloseAddStoryModal();
+    }, 3000);
   };
   return (
     <>
@@ -206,7 +207,7 @@ const AddStoryModal = () => {
             })}
 
             <div
-              style={{ display: maxSlides ? `none` : `block` }}
+              style={{ display: maxSlides ? `none` : `flex` }}
               onClick={addForm}
               className={storyModelStyles.addslide}
             >

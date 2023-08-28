@@ -6,7 +6,7 @@ import axios from "axios";
 import { globleContext } from "../../Store/Context";
 
 const LoginModel = ({ handleCloseLoginModal }) => {
-  const { setUser } = globleContext();
+  const { setUser, isLoading, setIsLoading } = globleContext();
   const [formValue, setFormValue] = useState({
     username: "",
     password: "",
@@ -17,6 +17,7 @@ const LoginModel = ({ handleCloseLoginModal }) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (!formValue.username || !formValue.password) {
       setError(true);
@@ -39,11 +40,13 @@ const LoginModel = ({ handleCloseLoginModal }) => {
           toast.error("Something went wrong");
         }
         setUser(data);
+        setIsLoading(false);
         localStorage.setItem("swipetory_user", JSON.stringify(data));
         setTimeout(() => {
           handleCloseLoginModal();
-        }, 3000);
+        }, 2000);
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
         toast.error(error.response.data.message);
       }
@@ -90,10 +93,14 @@ const LoginModel = ({ handleCloseLoginModal }) => {
           </p>
 
           <button
+            style={{
+              backgroundColor: isLoading ? "#b3d2ff" : "#73abff",
+              pointerEvents: isLoading ? "none" : "auto",
+            }}
             onClick={handleSubmit}
             className={loginModalStyles.login__btn}
           >
-            Login
+            {isLoading ? "loading..." : "Login"}
           </button>
         </div>
       </div>

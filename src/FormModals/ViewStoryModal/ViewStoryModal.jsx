@@ -102,7 +102,7 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   };
 
   const goToNextStory = () => {
-    setInProgress(false);
+    setInProgress((prev) => !prev);
 
     const nextStoryIndex = currentStoryIndex + 1;
     const nextStory = stories[nextStoryIndex];
@@ -155,7 +155,7 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(playStories, 8000);
+    const interval = setInterval(playStories, 10000);
     return () => clearInterval(interval);
   }, [currentStory]);
 
@@ -186,7 +186,7 @@ const ViewStoryModal = ({ closeViewStoryModal, storyId }) => {
             <div className={Styles.animate}></div>
             <div
               style={{
-                transition: `ease-in 8s width`,
+                transition: `ease-in 10s width`,
                 width: ` ${barWidth}%`,
               }}
               className={Styles.storybar}

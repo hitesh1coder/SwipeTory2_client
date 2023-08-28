@@ -63,44 +63,51 @@ const Home = () => {
   }, [selectedFilter, showAddStoryModal]);
 
   return (
-    // Render the Home page components
-    <div className={styles.container}>
-      <Header
-        setShowLoginModal={setShowLoginModal}
-        setShowAddStoryModal={setShowAddStoryModal}
-        handleShowBookmark={handleShowBookmark}
-      />
+    <>
+      {showBookmarks && user ? (
+        <BookmarkStories handleShowBookmark={handleShowBookmark} />
+      ) : (
+        // Render the Home page components
+        <div className={styles.container}>
+          <Header
+            setShowLoginModal={setShowLoginModal}
+            setShowAddStoryModal={setShowAddStoryModal}
+            handleShowBookmark={handleShowBookmark}
+          />
 
-      <Categories onSelectedValue={handleChildData} />
+          <Categories onSelectedValue={handleChildData} />
 
-      {/* Display the register modal if showRegisterModal is true */}
-      {showRegisterModal && (
-        <RegisterModal handleCloseRegisterModal={handleCloseRegisterModal} />
+          {/* Display the register modal if showRegisterModal is true */}
+          {showRegisterModal && (
+            <RegisterModal
+              handleCloseRegisterModal={handleCloseRegisterModal}
+            />
+          )}
+
+          {/* Display the login modal if showLoginModal is true */}
+          {showLoginModal && (
+            <LoginModal handleCloseLoginModal={handleCloseLoginModal} />
+          )}
+
+          {/* Display the add story modal if showAddStoryModal is true */}
+          {showAddStoryModal && <AddStoryModal />}
+
+          {/* Display the bookmarked stories if showBookmarks is true and user is logged in */}
+
+          {/* Display the user's stories if user is logged in */}
+          {user && <MyStories />}
+
+          {/* Display all stories for each category */}
+          {storyCategory.map((category, i) => (
+            <AllStories
+              Heading={"Top Stories About"}
+              name={category.name}
+              key={i}
+            />
+          ))}
+        </div>
       )}
-
-      {/* Display the login modal if showLoginModal is true */}
-      {showLoginModal && (
-        <LoginModal handleCloseLoginModal={handleCloseLoginModal} />
-      )}
-
-      {/* Display the add story modal if showAddStoryModal is true */}
-      {showAddStoryModal && <AddStoryModal />}
-
-      {/* Display the bookmarked stories if showBookmarks is true and user is logged in */}
-      {showBookmarks && user && <BookmarkStories />}
-
-      {/* Display the user's stories if user is logged in */}
-      {user && <MyStories />}
-
-      {/* Display all stories for each category */}
-      {storyCategory.map((category, i) => (
-        <AllStories
-          Heading={"Top Stories About"}
-          name={category.name}
-          key={i}
-        />
-      ))}
-    </div>
+    </>
   );
 };
 

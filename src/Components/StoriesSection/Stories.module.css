@@ -10,6 +10,9 @@
 .container .heading {
   text-align: center;
 }
+.container h4 {
+  color: #ff7373;
+}
 .story_cards {
   display: flex;
   justify-content: space-around;
@@ -22,7 +25,7 @@
   outline: none;
   padding: 0.6rem;
   font-weight: 600;
-  width: 5rem;
+  width: 6rem;
   border-radius: 1.4rem;
   margin: 0 0.3rem;
   color: #fff;
@@ -84,5 +87,9 @@
   .card_container img {
     width: 100%;
     height: 50vh;
+  }
+  .skeleton {
+    width: 80vw;
+    height: 55vh;
   }
 }

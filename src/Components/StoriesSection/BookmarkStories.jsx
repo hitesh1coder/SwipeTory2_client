@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./Stories.module.css";
-import SingleStoryCard from "../SingleStoryCard/SinglesStoryCard";
 import { globleContext } from "../../Store/Context";
+import Header from "../Header/Header";
 
-const BookmarkStories = () => {
-  const { stories, bookmarks } = globleContext();
+const BookmarkStories = ({ handleShowBookmark }) => {
+  const { bookmarks } = globleContext();
   return (
     <>
-      {/* <Header /> */}
+      <Header handleShowBookmark={handleShowBookmark} />
       <div className={styles.container}>
         <h2>Your Bookmarks</h2>
         {bookmarks.length <= 0 ? (
@@ -15,7 +15,13 @@ const BookmarkStories = () => {
         ) : (
           <div className={styles.story_cards}>
             {bookmarks.map((story, i) => (
-              <SingleStoryCard stories={stories} key={i} story={story} />
+              <div key={i} className={styles.card_container}>
+                <img src={story.imageurl} alt="story" />
+                <div className={styles.card_details}>
+                  <h2 className={styles.heading}>{story.heading}</h2>
+                  <p className={styles.desc}>{story.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         )}
