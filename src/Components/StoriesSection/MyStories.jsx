@@ -27,7 +27,7 @@ const MyStories = () => {
   };
   useEffect(() => {
     fetchMyStories();
-  }, [myStories]);
+  }, []);
 
   const handleEdit = (story) => {
     setStoryToUpdate(story);
