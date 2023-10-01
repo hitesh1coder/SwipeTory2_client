@@ -140,7 +140,7 @@ const AddStoryModal = () => {
       const createUrl = `${
         import.meta.env.VITE_SERVER_HOST
       }/story/create/${userId}`;
-      console.log(token);
+
       const requestOptions = {
         method: "POST",
         headers: {

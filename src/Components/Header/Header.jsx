@@ -94,8 +94,9 @@ const Header = ({ setShowLoginModal, handleShowBookmark }) => {
                 />
                 {user && <h2>{user.username}</h2>}
                 <div
-                  style={{ display: openMenu ? `flex` : `none` }}
-                  className={Styles.user_menu_box}
+                  className={
+                    openMenu ? Styles.user_menu_box : Styles.user_menu_box_close
+                  }
                 >
                   {user && <h3>{user.username}</h3>}
                   <button onClick={handleLogOut} className={Styles.btn}>

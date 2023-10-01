@@ -67,6 +67,10 @@ header {
   border-radius: 0.4rem;
   gap: 2rem;
   z-index: 2;
+  display: flex;
+}
+.user_menu_box_close {
+  display: none;
 }
 .user_container h2 {
   display: none;
@@ -131,7 +135,9 @@ header {
     right: 1rem;
     width: 0.8rem;
   }
-
+  .user_menu_box {
+    display: none;
+  }
   .mobile_menu {
     display: block;
   }
